@@ -23,13 +23,8 @@ public class EducationalProgramService {
         return educationalProgramRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public void save(EducationalProgram educationalProgram) {
-        educationalProgramRepository.save(educationalProgram);
-    }
-
-    public void update(UUID id, EducationalProgram educationalProgram) {
-        educationalProgram.setId(id);
-        educationalProgramRepository.save(educationalProgram);
+    public EducationalProgram save(EducationalProgram educationalProgram) {
+        return educationalProgramRepository.save(educationalProgram);
     }
 
     public void remove(UUID id) {

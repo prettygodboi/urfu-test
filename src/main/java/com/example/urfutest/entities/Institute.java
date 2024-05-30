@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,5 +25,5 @@ public class Institute {
     private String title;
 
     @OneToMany(mappedBy = "institute")
-    private List<EducationalProgram> programList;
+    private List<EducationalProgram> programList = new ArrayList<>();
 }

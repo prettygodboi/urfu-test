@@ -10,13 +10,6 @@ create table head
     fullname text not null
 );
 
-create table module
-(
-    id    uuid default gen_random_uuid() primary key,
-    title text not null,
-    type  uuid references dict (id)
-);
-
 create table dict
 (
     id        uuid       default gen_random_uuid() primary key,
@@ -24,6 +17,13 @@ create table dict
     bcode     text,
     parent_id uuid references dict (id),
     deleted   numeric(1) default 0
+);
+
+create table module
+(
+    id    uuid default gen_random_uuid() primary key,
+    title text not null,
+    type  uuid references dict (id)
 );
 
 create table educational_program
@@ -36,4 +36,10 @@ create table educational_program
     institute         uuid references institute (id),
     head              uuid references head (id),
     accreditationTime date        not null
+);
+
+create table educational_program2module
+(
+    educational_program_id uuid references educational_program(id),
+    module_id uuid references module(id)
 );

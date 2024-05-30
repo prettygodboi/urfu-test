@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,16 +14,23 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Table(name = "head")
-public class Head {
+@Table(name = "dict")
+public class Dict {
     @Id
-    @Column(name = "id")
     @UuidGenerator
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name = "fullname")
-    private String fullName;
+    @Column(name = "name")
+    private String name;
 
-    @OneToMany(mappedBy = "head")
-    List<EducationalProgram> heads = new ArrayList<>();
+    @Column(name = "bcode")
+    private String bcode;
+
+    @ManyToOne()
+    @JoinColumn(name = "parent_id")
+    private Dict parent_dict;
+
+    @Column(name = "deleted")
+    private Boolean deleted;
 }

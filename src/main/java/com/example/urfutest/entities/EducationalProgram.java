@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ import java.util.UUID;
 public class EducationalProgram {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @UuidGenerator
     private UUID id;
 
     @NotEmpty(message = "Название не должно быть пустым")
@@ -31,13 +32,13 @@ public class EducationalProgram {
     @Column(name = "cypher")
     private String cypher;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "level")
-    private Level level;
+    @ManyToOne
+    @JoinColumn(name = "level_id")
+    private Dict level;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "standard")
-    private Standard standard;
+    @ManyToOne
+    @JoinColumn(name = "standard_id")
+    private Dict standard;
 
     @ManyToOne
     @JoinColumn(name = "institute", referencedColumnName = "id")

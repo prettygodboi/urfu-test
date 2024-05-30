@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
@@ -17,13 +18,13 @@ import java.util.UUID;
 public class Module {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @UuidGenerator
     private UUID id;
 
     @Column(name = "title")
     private String title;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "standard")
-    private Standard standard;
+    @ManyToOne
+    @JoinColumn(name = "standard_id")
+    private Dict standard;
 }
