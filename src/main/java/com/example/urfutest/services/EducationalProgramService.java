@@ -1,6 +1,7 @@
 package com.example.urfutest.services;
 
 import com.example.urfutest.entities.EducationalProgram;
+import com.example.urfutest.entities.Module;
 import com.example.urfutest.repositories.EducationalProgramRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

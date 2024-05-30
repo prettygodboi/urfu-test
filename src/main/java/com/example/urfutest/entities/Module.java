@@ -24,5 +24,6 @@ public class Module {
     private String title;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "standard")
     private Standard standard;
 }

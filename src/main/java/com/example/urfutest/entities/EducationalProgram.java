@@ -32,9 +32,11 @@ public class EducationalProgram {
     private String cypher;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "level")
     private Level level;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "standard")
     private Standard standard;
 
     @ManyToOne
