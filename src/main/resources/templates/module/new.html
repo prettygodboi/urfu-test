@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New module</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/modules}" th:object="${module}">
+    <label for="title">Введите название модуля: </label>
+    <input type="text" th:field="*{title}" id="title"/>
+    <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Err</div>
+    <br>
+    <label for="type">Введите тип модуля: </label>
+    <input type="text" th:field="*{type}" id="type"/>
+    <div style="color: red" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Err</div>
+    <br>
+    <input type="submit" value="Create!"/>
+</form>
+</body>
+</html>

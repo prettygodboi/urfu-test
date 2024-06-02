@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Educational programs</title>
+</head>
+<body>
+<div th:each="program : ${educationalPrograms}">
+    <a th:href="@{educationalPrograms/{id}(id=${program.getId()})}"
+       th:text="${program.getTitle() + ', ' + program.getCypher()}">program</a>
+</div>
+<br>
+<hr/>
+<a href="educationalPrograms/new">Create new educational program</a>
+</body>
+</html>

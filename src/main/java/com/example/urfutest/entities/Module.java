@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -24,7 +26,9 @@ public class Module {
     @Column(name = "title")
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "standard_id")
-    private Dict standard;
+    @Column(name = "type")
+    private String type;
+
+    @ManyToMany(mappedBy = "modules")
+    private List<EducationalProgram> programs = new ArrayList<>();
 }

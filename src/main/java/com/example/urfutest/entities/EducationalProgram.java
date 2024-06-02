@@ -9,7 +9,9 @@ import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -47,6 +49,14 @@ public class EducationalProgram {
     @ManyToOne
     @JoinColumn(name = "head", referencedColumnName = "id")
     private Head head;
+
+    @ManyToMany
+    @JoinTable(
+            name = "educational_program2module",
+            joinColumns = @JoinColumn(name = "educational_program_id"),
+            inverseJoinColumns = @JoinColumn(name = "module_id")
+    )
+    private List<Module> modules = new ArrayList<>();
 
     @Column(name = "accreditationTime")
     @Temporal(TemporalType.DATE)

@@ -3,6 +3,7 @@ package com.example.urfutest.controllers;
 import com.example.urfutest.entities.EducationalProgram;
 import com.example.urfutest.services.EducationalProgramService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class EducationalProgramController {
     @GetMapping
     public String fetchAll(Model model) {
         model.addAttribute("educationalPrograms", educationalProgramService.fetchAll());
-        return "educationalProgram/programs";
+        return "educationalProgram/allPrograms";
     }
 
     @GetMapping("/{id}")
@@ -48,6 +49,12 @@ public class EducationalProgramController {
     public String editEducationalProgram(@ModelAttribute(value = "educationalProgram") EducationalProgram educationalProgram) {
         educationalProgramService.save(educationalProgram);
         return "redirect:/educationalPrograms";
+    }
+
+    @GetMapping("/{id}/modules")
+    public String educationalProgramModules(@PathVariable(value = "id") UUID id, Model model) {
+        model.addAttribute("modules", educationalProgramService.findModulesByProgramId(id));
+        return "educationalProgram/modules";
     }
 
     @DeleteMapping("/{id}")

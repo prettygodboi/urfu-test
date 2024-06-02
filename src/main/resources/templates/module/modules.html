@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modules</title>
+</head>
+<body>
+<div th:each="module : ${modules}">
+    <p th:text="${program.getTitle() + ', ' + program.getCypher()}">program</p>
+    <form th:method="GET" th:action="@{/modules/{id}/edit (id=${module.getId()})}">
+        <input type="submit" value="Изменить">
+    </form>
+    <form th:method="DELETE" th:action="@{/modules/{id}(id=${module.getId()})}">
+        <input type="submit" value="Удалить">
+    </form>
+
+</div>
+<br>
+<hr/>
+<a href="modules/new">Создать новый модуль</a>
+</body>
+</html>

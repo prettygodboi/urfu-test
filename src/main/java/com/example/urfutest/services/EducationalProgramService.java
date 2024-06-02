@@ -5,9 +5,12 @@ import com.example.urfutest.entities.Module;
 import com.example.urfutest.repositories.EducationalProgramRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,6 +28,16 @@ public class EducationalProgramService {
 
     public EducationalProgram save(EducationalProgram educationalProgram) {
         return educationalProgramRepository.save(educationalProgram);
+    }
+
+    public List<Module> findModulesByProgramId(UUID id) {
+        Optional<EducationalProgram> educationalProgram = educationalProgramRepository.findById(id);
+        if (educationalProgram.isPresent()) {
+            Hibernate.initialize(educationalProgram.get().getModules());
+            return educationalProgram.get().getModules();
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     public void remove(UUID id) {
