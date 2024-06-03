@@ -23,7 +23,7 @@ create table module
 (
     id    uuid default gen_random_uuid() primary key,
     title text not null,
-    type  uuid references dict (id)
+    type  text not null
 );
 
 create table educational_program
@@ -40,6 +40,6 @@ create table educational_program
 
 create table educational_program2module
 (
-    educational_program_id uuid references educational_program(id),
-    module_id uuid references module(id)
+    educational_program_id uuid references educational_program (id),
+    module_id              uuid references module (id)
 );

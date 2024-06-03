@@ -1,11 +1,17 @@
 package com.example.urfutest.controllers;
 
+import com.example.urfutest.entities.Dict;
 import com.example.urfutest.entities.EducationalProgram;
+import com.example.urfutest.entities.Head;
+import com.example.urfutest.entities.Institute;
 import com.example.urfutest.services.EducationalProgramService;
+import com.example.urfutest.services.InstituteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
+//import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -15,6 +21,7 @@ import java.util.UUID;
 @RequestMapping("/educationalPrograms")
 public class EducationalProgramController {
     private final EducationalProgramService educationalProgramService;
+    private final InstituteService instituteService;
 
     @GetMapping
     public String fetchAll(Model model) {
@@ -34,7 +41,13 @@ public class EducationalProgramController {
     }
 
     @PostMapping
-    public String createEducationalProgram(@ModelAttribute(value = "educationalProgram") EducationalProgram educationalProgram){
+    public String createEducationalProgram(Model model,
+                                           @ModelAttribute(value = "educationalProgram") @Valid EducationalProgram educationalProgram,
+//                                           @ModelAttribute(value = "dict")Dict dict,
+                                           @ModelAttribute(value = "institute")Institute institute,
+                                           @ModelAttribute(value = "head")Head head){
+
+        model.addAttribute("institutes", instituteService.fetchAll());
         educationalProgramService.save(educationalProgram);
         return "redirect:/educationalPrograms";
     }

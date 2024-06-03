@@ -1,0 +1,1 @@
+insert into dict(name, bcode) values ('Уровень обучения', 'level'), ('Стандарт обучения', 'standard');

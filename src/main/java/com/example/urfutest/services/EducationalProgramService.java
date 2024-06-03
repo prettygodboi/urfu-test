@@ -1,5 +1,6 @@
 package com.example.urfutest.services;
 
+import com.example.urfutest.entities.Dict;
 import com.example.urfutest.entities.EducationalProgram;
 import com.example.urfutest.entities.Module;
 import com.example.urfutest.repositories.EducationalProgramRepository;
@@ -39,6 +40,13 @@ public class EducationalProgramService {
             return Collections.emptyList();
         }
     }
+
+//    public List<Dict> getLevels(Dict level) {
+//        if (level.getParent_dict().equals("2752b729-9627-429c-9a9e-b2341d61b7bd")){
+//            return level.getName();
+//        }
+//        return
+//    }
 
     public void remove(UUID id) {
         educationalProgramRepository.deleteById(id);

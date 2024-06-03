@@ -58,7 +58,7 @@ public class EducationalProgram {
     )
     private List<Module> modules = new ArrayList<>();
 
-    @Column(name = "accreditationTime")
+    @Column(name = "accreditationtime")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date accreditationTime;

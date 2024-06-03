@@ -6,14 +6,15 @@
 </head>
 <body>
 <div th:each="module : ${modules}">
-    <p th:text="${program.getTitle() + ', ' + program.getCypher()}">program</p>
+    <p th:text="${module.getTitle() + ', ' + module.getType()}">module</p>
+
     <form th:method="GET" th:action="@{/modules/{id}/edit (id=${module.getId()})}">
         <input type="submit" value="Изменить">
     </form>
+
     <form th:method="DELETE" th:action="@{/modules/{id}(id=${module.getId()})}">
         <input type="submit" value="Удалить">
     </form>
-
 </div>
 <br>
 <hr/>
