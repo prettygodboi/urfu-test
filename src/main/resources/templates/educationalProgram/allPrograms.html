@@ -6,11 +6,11 @@
 </head>
 <body>
 <div th:each="program : ${educationalPrograms}">
-    <a th:href="@{educationalPrograms/{id}(id=${program.getId()})}"
+    <a th:href="@{educationalPrograms/{id}/modules(id=${program.getId()})}"
        th:text="${program.getTitle() + ', ' + program.getCypher()}">program</a>
 </div>
 <br>
 <hr/>
-<a href="educationalPrograms/new">Create new educational program</a>
+<a href="educationalPrograms/new">Создать новую образовательную програму</a>
 </body>
 </html>

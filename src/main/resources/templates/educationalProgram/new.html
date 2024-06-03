@@ -16,33 +16,33 @@
     <div style="color: red" th:if="${#fields.hasErrors('cypher')}" th:errors="*{cypher}">Err</div>
     <br>
 
-<!--    <label for="level">Выберите уровень образовательной программы: </label>-->
-<!--    <select th:object="${level}" th:field="*{id}" id="level">-->
-<!--        <option th:each="level : ${levels}" th:value="${level.getId()}" th:text="${level.getName()}">-->
-<!--        </option>-->
-<!--    </select>-->
-<!--    <div style="color: red" th:if="${#fields.hasErrors('level')}" th:errors="*{level}">Err</div>-->
-<!--    <br>-->
+    <label for="level">Выберите уровень образовательной программы: </label>
+    <select th:object="${dict}" th:field="*{id}" id="level">
+        <option th:each="level : ${levels}" th:value="${level.getId()}" th:text="${level.getName()}">
+        </option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('level')}" th:errors="*{level}">Err</div>
+    <br>
 
-<!--    <label for="standard">Выберите стандарт обучения: </label>-->
-<!--    <select th:object="${standard}" th:field="*{id}" id="standard">-->
-<!--        <option th:each="program : ${educationalPrograms}" th:value="${program.getId()}" th:text="${program.getStandard()}">-->
-<!--        </option>-->
-<!--    </select>-->
-<!--    <div style="color: red" th:if="${#fields.hasErrors('standard')}" th:errors="*{standard}">Err</div>-->
-<!--    <br>-->
+    <label for="standard">Выберите стандарт обучения: </label>
+    <select th:object="${dict}" th:field="*{id}" id="standard">
+        <option th:each="standard : ${standards}" th:value="${standard.getId()}" th:text="${standard.getName()}">
+        </option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('standard')}" th:errors="*{standard}">Err</div>
+    <br>
 
     <label for="institute">Выберите институт: </label>
     <select th:object="${institute}" th:field="*{id}" id="institute">
         <option th:each="institute : ${institutes}" th:value="${institute.getId()}" th:text="${institute.getTitle()}">
         </option>
     </select>
-<!--    <div style="color: red" th:if="${#fields.hasErrors('institute')}" th:errors="*{institute}">Err</div>-->
+    <div style="color: red" th:if="${#fields.hasErrors('institute')}" th:errors="*{institute}">Err</div>
     <br>
 
     <label for="head">Выберите ответственное лицо: </label>
     <select th:object="${head}" th:field="*{id}" id="head">
-        <option th:each="program : ${educationalPrograms}" th:value="${program.getId()}" th:text="${program.getHead()}">
+        <option th:each="head : ${heads}" th:value="${head.getId()}" th:text="${head.getFullName()}">
         </option>
     </select>
     <div style="color: red" th:if="${#fields.hasErrors('head')}" th:errors="*{head}">Err</div>

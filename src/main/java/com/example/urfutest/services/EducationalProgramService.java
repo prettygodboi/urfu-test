@@ -1,12 +1,10 @@
 package com.example.urfutest.services;
 
-import com.example.urfutest.entities.Dict;
 import com.example.urfutest.entities.EducationalProgram;
 import com.example.urfutest.entities.Module;
 import com.example.urfutest.repositories.EducationalProgramRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -34,19 +32,27 @@ public class EducationalProgramService {
     public List<Module> findModulesByProgramId(UUID id) {
         Optional<EducationalProgram> educationalProgram = educationalProgramRepository.findById(id);
         if (educationalProgram.isPresent()) {
-            Hibernate.initialize(educationalProgram.get().getModules());
             return educationalProgram.get().getModules();
         } else {
             return Collections.emptyList();
         }
     }
 
-//    public List<Dict> getLevels(Dict level) {
-//        if (level.getParent_dict().equals("2752b729-9627-429c-9a9e-b2341d61b7bd")){
-//            return level.getName();
-//        }
-//        return
-//    }
+    public void assign(UUID id, Module module) {
+        educationalProgramRepository.findById(id).ifPresent(educationalProgram -> {
+            educationalProgram.getModules().add(module);
+            module.getPrograms().add(educationalProgram);
+            educationalProgramRepository.save(educationalProgram);
+        });
+    }
+
+    public void release(UUID id, Module module) {
+        educationalProgramRepository.findById(id).ifPresent(educationalProgram -> {
+            educationalProgram.getModules().remove(module);
+            module.getPrograms().remove(educationalProgram);
+            educationalProgramRepository.save(educationalProgram);
+        });
+    }
 
     public void remove(UUID id) {
         educationalProgramRepository.deleteById(id);

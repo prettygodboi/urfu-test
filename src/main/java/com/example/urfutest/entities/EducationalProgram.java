@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -50,7 +51,7 @@ public class EducationalProgram {
     @JoinColumn(name = "head", referencedColumnName = "id")
     private Head head;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "educational_program2module",
             joinColumns = @JoinColumn(name = "educational_program_id"),

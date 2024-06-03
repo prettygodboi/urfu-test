@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
@@ -29,6 +30,6 @@ public class Module {
     @Column(name = "type")
     private String type;
 
-    @ManyToMany(mappedBy = "modules")
+    @ManyToMany(mappedBy = "modules", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EducationalProgram> programs = new ArrayList<>();
 }

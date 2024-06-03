@@ -23,13 +23,12 @@ public class ModuleService {
         return moduleRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public void save(Module module) {
-        moduleRepository.save(module);
+    public Module save(Module module) {
+        return moduleRepository.save(module);
     }
 
-    public void update(UUID id, Module module) {
-        module.setId(id);
-        moduleRepository.save(module);
+    public List<Module> findAllByProgramId(UUID id) {
+        return moduleRepository.findAllByProgramId(id);
     }
 
     public void remove(UUID id) {
