@@ -8,6 +8,14 @@
 <div th:each="program : ${educationalPrograms}">
     <a th:href="@{educationalPrograms/{id}/modules(id=${program.getId()})}"
        th:text="${program.getTitle() + ', ' + program.getCypher()}">program</a>
+
+    <form th:method="GET" th:action="@{educationalPrograms/{id}/edit(id=${program.getId()})}">
+        <input type="submit" value="Редактировать"/>
+    </form>
+
+    <form th:method="DELETE" th:action="@{educationalPrograms/{id}(id=${program.getId()})}">
+        <input type="submit" value="Удалить"/>
+    </form>
 </div>
 <br>
 <hr/>

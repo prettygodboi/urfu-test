@@ -5,17 +5,13 @@ import com.example.urfutest.entities.EducationalProgram;
 import com.example.urfutest.entities.Head;
 import com.example.urfutest.entities.Institute;
 import com.example.urfutest.entities.Module;
-import com.example.urfutest.repositories.DictRepository;
 import com.example.urfutest.services.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -40,6 +36,7 @@ public class EducationalProgramController {
                                                @ModelAttribute(value = "institute") Institute institute,
                                                @ModelAttribute(value = "head") Head head,
                                                Model model) {
+        model.addAttribute("modules", moduleService.fetchAll());
         model.addAttribute("levels", dictService.findAllByParentCode("level"));
         model.addAttribute("standards", dictService.findAllByParentCode("standard"));
         model.addAttribute("institutes", instituteService.fetchAll());
@@ -48,15 +45,21 @@ public class EducationalProgramController {
     }
 
     @PostMapping
-    public String createEducationalProgram(@ModelAttribute(value = "educationalProgram") @Valid EducationalProgram educationalProgram) {
+    public String saveEducationalProgram(@ModelAttribute(value = "educationalProgram") @Valid EducationalProgram educationalProgram) {
         educationalProgramService.save(educationalProgram);
         return "redirect:/educationalPrograms";
     }
 
     @GetMapping("/{id}/edit")
-    public String editPage(@PathVariable(value = "id") UUID id, Model model) {
+    public String editPage(Model model,
+                           @PathVariable(value = "id") UUID id) {
+        model.addAttribute("levels", dictService.findAllByParentCode("level"));
+        model.addAttribute("standards", dictService.findAllByParentCode("standard"));
+        model.addAttribute("institutes", instituteService.fetchAll());
+        model.addAttribute("heads", headService.fetchAll());
         model.addAttribute("educationalProgram", educationalProgramService.findById(id));
-        return "educationalProgram/edit";
+        model.addAttribute("modules", moduleService.fetchAll());
+        return "educationalProgram/new";
     }
 
     @PatchMapping("/{id}")
@@ -75,17 +78,19 @@ public class EducationalProgramController {
         return "educationalProgram/programModules";
     }
 
-    @PatchMapping("/{id}/release")
-    public String release(@PathVariable(value = "id")UUID id,
-                          @ModelAttribute(value = "module")Module module) {
-        educationalProgramService.release(id, module);
-        return "redirect:/educationalPrograms/"+id+"/modules";
+    @DeleteMapping("/{id}/modules")
+    public String release(@PathVariable(value = "id") UUID programId,
+                          @RequestParam(value = "moduleId") UUID moduleId) {
+        educationalProgramService.release(programId, moduleId);
+        return "redirect:/educationalPrograms/" + programId + "/modules";
     }
 
-    @PatchMapping("/{id}/assign")
-    public String assign(@PathVariable(value = "id")UUID id, @ModelAttribute("module")Module module) {
-        educationalProgramService.assign(id,module);
-        return "redirect:/educationalPrograms/"+id+"/modules";
+    @PatchMapping("/{id}/modules")
+    public String assign(@PathVariable(value = "id") UUID programId,
+                         @RequestParam(value = "moduleId") UUID moduleId) {
+
+        educationalProgramService.assign(programId, moduleId);
+        return "redirect:/educationalPrograms/" + programId + "/modules";
     }
 
     @DeleteMapping("/{id}")

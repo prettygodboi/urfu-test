@@ -9,7 +9,6 @@ import java.util.UUID;
 
 public interface ModuleRepository extends JpaRepository<Module, UUID> {
 
-    @Query(nativeQuery = true, value = "SELECT * FROM module WHERE NOT EXISTS(" +
-            "SELECT 1 FROM educational_program2module WHERE educational_program_id = :id)")
+    @Query(nativeQuery = true, value = "SELECT * FROM module WHERE id NOT IN (SELECT module_id FROM educational_program2module WHERE educational_program_id = :id)")
     List<Module> findAllByProgramId(UUID id);
 }

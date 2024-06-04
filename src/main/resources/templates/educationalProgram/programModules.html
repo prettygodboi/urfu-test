@@ -13,22 +13,35 @@
 
 <div th:if="${!modules.isEmpty()}">
     <hr/>
-    <b>Модули:</b>
+    <b>Модули образовательной программы:</b>
     <table th:each="module : ${modules}">
-        <tr th:text="${module.getTitle() + ', '+ module.getType()}">module</tr>
-        <form th:method="PATCH" th:action="@{/educationalPrograms/{id}/release(id=${program.getId()})}">
+        <form th:method="DELETE" th:action="@{/educationalPrograms/{id}/modules(id=${program.getId()})}">
+            <input type="hidden" name="moduleId" th:value="${module.getId()}">
+            <tr th:text="${module.getTitle() + ', '+ module.getType()}">
+                module
+            </tr>
             <input type="submit" value="Убрать модуль"/>
         </form>
     </table>
     <hr/>
 </div>
 
-<table th:each="module : ${freeModules}">
-    <tr th:text="${module.getTitle() + ', '+ module.getType()}">module</tr>
-    <form th:method="PATCH" th:action="@{/educationalPrograms/{id}/assign(id=${program.getId()})}">
-        <input type="submit" value="Добавить модуль"/>
-    </form>
-</table>
-<hr/>
+<div th:if="${!freeModules.isEmpty()}">
+        <form th:method="PATCH"
+              th:action="@{/educationalPrograms/{id}/modules(id=${program.getId()})}">
+            <div>
+                <select class="form-control" name="moduleId">
+                    <option th:each="module : ${freeModules}"
+                            th:value="${module.getId()}"
+                            th:text="${module.getTitle()}"></option>
+                </select>
+            </div>
+            <br/>
+            <button type="submit">
+                Добавить модуль
+            </button>
+        </form>
+    <hr/>
+</div>
 </body>
 </html>
