@@ -1,7 +1,7 @@
 package com.example.urfutest.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.UuidGenerator;
@@ -57,7 +57,9 @@ public class EducationalProgram {
     private List<Module> modules = new ArrayList<>();
 
     @Column(name = "accreditationtime")
+    @NotNull(message = "Введите дату следующей аккредитации")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past(message = "Пожалуйста, введите дату правильно (yyyy-mm-dd)")
     private Date accreditationTime;
 }

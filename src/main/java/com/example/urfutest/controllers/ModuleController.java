@@ -2,9 +2,11 @@ package com.example.urfutest.controllers;
 
 import com.example.urfutest.entities.Module;
 import com.example.urfutest.services.ModuleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -27,7 +29,10 @@ public class ModuleController {
     }
 
     @PostMapping
-    public String createModule(@ModelAttribute(value = "module") Module module) {
+    public String createModule(@ModelAttribute(value = "module")@Valid Module module, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "module/new";
+        }
         moduleService.save(module);
         return "redirect:/modules";
     }

@@ -1,11 +1,11 @@
 package com.example.urfutest.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
@@ -24,9 +24,11 @@ public class Module {
     @UuidGenerator
     private UUID id;
 
+    @NotEmpty(message = "Заполните назвоние модуля")
     @Column(name = "title")
     private String title;
 
+    @NotEmpty(message = "Заполните тип модуля")
     @Column(name = "type")
     private String type;
 
