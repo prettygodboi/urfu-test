@@ -43,3 +43,26 @@ create table educational_program2module
     educational_program_id uuid references educational_program (id),
     module_id              uuid references module (id)
 );
+
+create table if not exists users
+(
+    id       uuid default gen_random_uuid() primary key,
+    username varchar(30) not null,
+    password varchar(128) default '{noop}123'
+);
+
+create table if not exists roles
+(
+    id uuid default gen_random_uuid() primary key,
+    name varchar(20) not null
+);
+insert into roles(name) values ('USER');
+
+create table if not exists user2role
+(
+    user_id uuid references users(id),
+    role_id uuid references roles(id)
+);
+
+insert into users(username) values ('dima');
+

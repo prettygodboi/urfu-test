@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div style="color: red" th:if="${param.error}">
+    Неверные данные
+</div>
+<form th:action="@{/login}" method="post">
+    <label for="username">Имя пользователя:
+        <input id="username" type="text" name="username">
+    </label>
+    <label for="password">Пароль:
+        <input id="password" type="password" name="password">
+    </label><br>
+    <button type="submit">Войти</button>
+</form>
+</body>
+</html>

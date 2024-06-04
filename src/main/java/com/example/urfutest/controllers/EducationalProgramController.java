@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
 
@@ -46,13 +47,17 @@ public class EducationalProgramController {
     }
 
     @PostMapping
-    public String saveEducationalProgram(@ModelAttribute(value = "educationalProgram") @Valid EducationalProgram educationalProgram, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
-            return "educationalProgram/new";
-        } else {
-            educationalProgramService.save(educationalProgram);
-            return "redirect:/educationalPrograms";
+    public String saveEducationalProgram(@ModelAttribute(value = "educationalProgram") @Valid EducationalProgram educationalProgram,
+                                         BindingResult bindingResult,
+                                         RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("educationalProgram", educationalProgram);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/educationalPrograms/new";
         }
+        educationalProgramService.save(educationalProgram);
+        return "redirect:/educationalPrograms";
+
     }
 
     @GetMapping("/{id}/edit")
