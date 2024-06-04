@@ -1,6 +1,5 @@
 package com.example.urfutest.controllers;
 
-import com.example.urfutest.entities.EducationalProgram;
 import com.example.urfutest.entities.Module;
 import com.example.urfutest.services.ModuleService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,7 @@ public class ModuleController {
     }
 
     @PostMapping
-    public String createModule(@ModelAttribute(value = "module") Module module){
+    public String createModule(@ModelAttribute(value = "module") Module module) {
         moduleService.save(module);
         return "redirect:/modules";
     }
