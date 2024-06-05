@@ -1,6 +1,5 @@
 package com.example.urfutest.services;
 
-import com.example.urfutest.entities.EducationalProgram;
 import com.example.urfutest.entities.Module;
 import com.example.urfutest.repositories.ModuleRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Сервис модуля
+ */
 @Service
 @RequiredArgsConstructor
 public class ModuleService {

@@ -9,7 +9,10 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Objects;
 import java.util.UUID;
-
+/**
+ * Сущность словаря, которая хранит уровни и стандарты образовательной программы
+ * @author Shevlyakov D.P.
+ */
 @Entity
 @Getter
 @Setter

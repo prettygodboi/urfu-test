@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Сервис словаря
+ */
 @Service
 @RequiredArgsConstructor
 public class DictService {

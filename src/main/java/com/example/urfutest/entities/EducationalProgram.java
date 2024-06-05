@@ -3,7 +3,6 @@ package com.example.urfutest.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,6 +11,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Сущность образовательной программы
+ * @author Shevlyakov D.P.
+ */
 @Entity
 @Getter
 @Setter
@@ -60,6 +63,5 @@ public class EducationalProgram {
     @NotNull(message = "Введите дату следующей аккредитации")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past(message = "Пожалуйста, введите дату правильно (yyyy-mm-dd)")
     private Date accreditationTime;
 }

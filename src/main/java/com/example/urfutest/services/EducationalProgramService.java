@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Сервис образовательной программы
+ */
 @Service
 @RequiredArgsConstructor
 public class EducationalProgramService {
@@ -32,6 +35,9 @@ public class EducationalProgramService {
         return educationalProgramRepository.save(educationalProgram);
     }
 
+    /**
+     * Метод получения модулей образовательной программы
+     */
     public List<Module> findModulesByProgramId(UUID id) {
         Optional<EducationalProgram> educationalProgram = educationalProgramRepository.findById(id);
         if (educationalProgram.isPresent()) {
@@ -40,7 +46,9 @@ public class EducationalProgramService {
             return Collections.emptyList();
         }
     }
-
+    /**
+     * Метод который связывает образовательную программу и модуль
+     */
     public void assign(UUID programId, UUID moduleId) {
         educationalProgramRepository.findById(programId).ifPresent(educationalProgram -> {
             Module m = moduleRepository.findById(moduleId)
@@ -51,6 +59,9 @@ public class EducationalProgramService {
         });
     }
 
+    /**
+     * Метод который убирает связь мужду образовательной программой и модулем
+     */
     public void release(UUID programId, UUID moduleId) {
         educationalProgramRepository.findById(programId).ifPresent(educationalProgram -> {
             Module m = moduleRepository.findById(moduleId)

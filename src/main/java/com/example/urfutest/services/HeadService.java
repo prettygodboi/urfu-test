@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Сервис ответственного лица
+ */
 @Service
 @RequiredArgsConstructor
 public class HeadService {

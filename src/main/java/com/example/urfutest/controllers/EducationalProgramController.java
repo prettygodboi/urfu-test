@@ -1,9 +1,6 @@
 package com.example.urfutest.controllers;
 
-import com.example.urfutest.entities.Dict;
 import com.example.urfutest.entities.EducationalProgram;
-import com.example.urfutest.entities.Head;
-import com.example.urfutest.entities.Institute;
 import com.example.urfutest.entities.Module;
 import com.example.urfutest.services.*;
 import jakarta.validation.Valid;
@@ -16,6 +13,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
 
+/**
+ * Контроллер отвечающий за запросы, которые
+ * взаимодействие с образовательными программами
+ * @author Shevlyakov D.P.
+ */
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/educationalPrograms")
@@ -25,18 +27,20 @@ public class EducationalProgramController {
     private final ModuleService moduleService;
     private final HeadService headService;
     private final DictService dictService;
-
+    /**
+     * Метод, который выводит страницу со всеми образовательными программами
+     */
     @GetMapping
     public String fetchAll(Model model) {
         model.addAttribute("educationalPrograms", educationalProgramService.fetchAll());
         return "educationalProgram/allPrograms";
     }
 
+    /**
+     * Метод, который выводит страницу для создания новой образовательной программы
+     */
     @GetMapping("/new")
     public String createEducationalProgramPage(@ModelAttribute(value = "educationalProgram") EducationalProgram educationalProgram,
-                                               @ModelAttribute(value = "dict") Dict dict,
-                                               @ModelAttribute(value = "institute") Institute institute,
-                                               @ModelAttribute(value = "head") Head head,
                                                Model model) {
         model.addAttribute("modules", moduleService.fetchAll());
         model.addAttribute("levels", dictService.findAllByParentCode("level"));
@@ -46,6 +50,9 @@ public class EducationalProgramController {
         return "educationalProgram/new";
     }
 
+    /**
+     * Метод, который сохраняет данные образовательной программы
+     */
     @PostMapping
     public String saveEducationalProgram(@ModelAttribute(value = "educationalProgram") @Valid EducationalProgram educationalProgram,
                                          BindingResult bindingResult,
@@ -60,6 +67,9 @@ public class EducationalProgramController {
 
     }
 
+    /**
+     * Метод, который выводит страницу для изменения существующей образовательной программы
+     */
     @GetMapping("/{id}/edit")
     public String editPage(Model model,
                            @PathVariable(value = "id") UUID id) {
@@ -72,12 +82,9 @@ public class EducationalProgramController {
         return "educationalProgram/new";
     }
 
-    @PatchMapping("/{id}")
-    public String editEducationalProgram(@ModelAttribute(value = "educationalProgram") EducationalProgram educationalProgram) {
-        educationalProgramService.save(educationalProgram);
-        return "redirect:/educationalPrograms";
-    }
-
+    /**
+     * Метод, который выводит страницу с модулями образовательной программы
+     */
     @GetMapping("/{id}/modules")
     public String educationalProgramModules(@PathVariable(value = "id") UUID id,
                                             @ModelAttribute(value = "program") EducationalProgram program,
@@ -88,6 +95,9 @@ public class EducationalProgramController {
         return "educationalProgram/programModules";
     }
 
+    /**
+     * Метод, который убирает связь между образовательной программой и модулем
+     */
     @DeleteMapping("/{id}/modules")
     public String release(@PathVariable(value = "id") UUID programId,
                           @RequestParam(value = "moduleId") UUID moduleId) {
@@ -95,14 +105,19 @@ public class EducationalProgramController {
         return "redirect:/educationalPrograms/" + programId + "/modules";
     }
 
+    /**
+     * Метод, который позволяет связать модуль и образовательную программу
+     */
     @PatchMapping("/{id}/modules")
     public String assign(@PathVariable(value = "id") UUID programId,
                          @RequestParam(value = "moduleId") UUID moduleId) {
-
         educationalProgramService.assign(programId, moduleId);
         return "redirect:/educationalPrograms/" + programId + "/modules";
     }
 
+    /**
+     * Метод удаления образовательной программы
+     */
     @DeleteMapping("/{id}")
     public String deleteEducationalProgram(@PathVariable(value = "id") UUID id) {
         educationalProgramService.remove(id);

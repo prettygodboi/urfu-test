@@ -27,20 +27,20 @@
 </div>
 
 <div th:if="${!freeModules.isEmpty()}">
-        <form th:method="PATCH"
-              th:action="@{/educationalPrograms/{id}/modules(id=${program.getId()})}">
-            <div>
-                <select class="form-control" name="moduleId">
-                    <option th:each="module : ${freeModules}"
-                            th:value="${module.getId()}"
-                            th:text="${module.getTitle()}"></option>
-                </select>
-            </div>
-            <br/>
-            <button type="submit">
-                Добавить модуль
-            </button>
-        </form>
+    <form th:method="PATCH"
+          th:action="@{/educationalPrograms/{id}/modules(id=${program.getId()})}">
+        <div>
+            <select class="form-control" name="moduleId">
+                <option th:each="module : ${freeModules}"
+                        th:value="${module.getId()}"
+                        th:text="${module.getTitle()}"></option>
+            </select>
+        </div>
+        <br/>
+        <button type="submit">
+            Добавить модуль
+        </button>
+    </form>
     <hr/>
 </div>
 </body>
