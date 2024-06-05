@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:text-align="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -8,14 +8,17 @@
 <div style="color: red" th:if="${param.error}">
     Неверные данные
 </div>
-<form th:action="@{/login}" method="post">
-    <label for="username">Имя пользователя:
-        <input id="username" type="text" name="username">
-    </label>
-    <label for="password">Пароль:
-        <input id="password" type="password" name="password">
-    </label><br>
-    <button type="submit">Войти</button>
-</form>
+<div >
+    <form th:action="@{/login}" method="post" style=" width: 20rem; margin-top: 5px;">
+        <label for="username">Имя пользователя:
+            <input id="username" type="text" name="username" style=" width: 21rem; margin-top: 10px;">
+        </label>
+        <br/>
+        <label for="password">Пароль:
+            <input id="password" type="password" name="password" style=" width: 20rem; margin-top: 10px;">
+        </label><br>
+        <button type="submit">Войти</button>
+    </form>
+</div>
 </body>
 </html>

@@ -5,6 +5,7 @@
     <title>New module</title>
 </head>
 <body>
+<div th:insert="~{fragment :: header}"></div>
 <div th:if="${module.getId() == null}"><h1>Новый модуль</h1></div>
 <div th:unless="${module.getId() == null}"><h1>Изменение модуля</h1></div>
 <form th:method="POST" th:action="@{/modules}" th:object="${module}">

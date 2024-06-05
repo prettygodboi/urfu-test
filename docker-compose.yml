@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  app:
+    restart: on-failure
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    container_name: 'urfu-test'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/university
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=152630
+    depends_on:
+      - db
+  db:
+    image: "postgres:16"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=152630
+      - POSTGRES_DB=university

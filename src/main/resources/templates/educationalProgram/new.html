@@ -5,8 +5,9 @@
     <title>New EP</title>
 </head>
 <body>
+<div th:insert="~{fragment :: header}"></div>
 <div th:if="${educationalProgram.getId() == null}"><h1>Новая образовательная программа</h1></div>
-<div th:unless="${educationalProgram.getId() == null}"><h1>Изменение образовательной программы</h1></div>
+<div th:unless="${educationalProgram.getId() == null}"><h1>Редактирование образовательной программы</h1></div>
 
 <form th:method="POST" th:action="@{/educationalPrograms}" th:object="${educationalProgram}">
     <input type="hidden" th:field="*{id}"/>
@@ -52,7 +53,7 @@
     <div style="color: red" th:if="${#fields.hasErrors('head')}" th:errors="*{head}">Err</div>
     <br>
 
-    <label for="accreditationTime">Введите дату аккредитации (yyyy-MM-dd): </label>
+    <label for="accreditationTime">Введите дату аккредитации: </label>
     <input type="date" th:field="*{accreditationTime}" id="accreditationTime"/>
     <div style="color: red" th:if="${#fields.hasErrors('accreditationTime')}" th:errors="*{accreditationTime}">Err</div>
     <br>

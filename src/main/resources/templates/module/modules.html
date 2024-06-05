@@ -5,6 +5,7 @@
     <title>Modules</title>
 </head>
 <body>
+<div th:insert="~{fragment :: header}"></div>
 <div th:each="module : ${modules}">
     <p th:text="${module.getTitle() + ', ' + module.getType()}">module</p>
 
